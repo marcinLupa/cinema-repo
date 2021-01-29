@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+
+  mysql-container:
+    image: mysql:latest
+    restart: always
+    ports:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=test123
+
+  mysql-container1:
+    image: mysql:latest
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test123
+      MYSQL_TCP_PORT: 3307
+    ports:
+    - "3307:3307"
+    expose:
+    - "3307"
+
+  cinema-eureka-server:
+    image: cinema-eureka-server
+    build:
+      context: ./cinema-eureka-server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8761:8761"
+
+  cinema-users-service:
+    image: cinema-users-service
+    build:
+      context: ./cinema-users-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+    - "8100"
+
+  cinema-api-gateway:
+    image: cinema-api-gateway
+    build:
+      context: ./cinema-api-gateway
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+
+  cinema-spring-cloud-server:
+    image: cinema-spring-cloud-server
+    build:
+      context: ./cinema-spring-cloud-server
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8888:8888"
