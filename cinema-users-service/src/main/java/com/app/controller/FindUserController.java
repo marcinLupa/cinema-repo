@@ -13,6 +13,7 @@ private final UsersService usersService;
 
     @GetMapping("/id/{id}")
     private GetUserDto findById(@PathVariable Long id){
+
         return usersService.findById(id);
     }
     @GetMapping("/username/{username}")

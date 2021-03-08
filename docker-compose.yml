@@ -4,17 +4,25 @@ services:
 
   mysql-container:
     image: mysql:latest
+    volumes:
+      - mysql1:/var/lib/mysql
     restart: always
-    ports:
-      - "3306"
+
     environment:
-      - MYSQL_ROOT_PASSWORD=root1234
-      - MYSQL_DATABASE=db
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=test123
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test123
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - "3308:3308"
+    expose:
+      - "3308"
 
   mysql-container1:
     image: mysql:latest
+    volumes:
+      - mysql1:/var/lib/mysql
     restart: always
 
     environment:
@@ -29,7 +37,7 @@ services:
     - "3307"
 
   cinema-eureka-server:
-    image: cinema-eureka-server
+    image: marcinlupa1987/cinema-repo:cinema-eureka-server
     build:
       context: ./cinema-eureka-server
       dockerfile: Dockerfile
@@ -38,7 +46,7 @@ services:
       - "8761:8761"
 
   cinema-users-service:
-    image: cinema-users-service
+    image: marcinlupa1987/cinema-repo:cinema-users-service
     build:
       context: ./cinema-users-service
       dockerfile: Dockerfile
@@ -46,8 +54,17 @@ services:
     ports:
     - "8100"
 
+  cinema-ticket-service:
+    image: marcinlupa1987/cinema-repo:cinema-ticket-service
+    build:
+      context: ./cinema-ticket-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8100"
+
   cinema-api-gateway:
-    image: cinema-api-gateway
+    image: marcinlupa1987/cinema-repo:cinema-api-gateway
     build:
       context: ./cinema-api-gateway
       dockerfile: Dockerfile
@@ -56,10 +73,14 @@ services:
       - "8080:8080"
 
   cinema-spring-cloud-server:
-    image: cinema-spring-cloud-server
+    image: marcinlupa1987/cinema-repo:cinema-spring-cloud-server
     build:
       context: ./cinema-spring-cloud-server
       dockerfile: Dockerfile
     restart: always
     ports:
       - "8888:8888"
+
+volumes:
+  mysql1:
+  mysql2:

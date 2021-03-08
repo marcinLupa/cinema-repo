@@ -12,6 +12,7 @@ public class AppDataController {
 
     @GetMapping("/app-data")
     public String appData() {
-        return appData.getAuthor() + ", " + appData.getVersion();
+        return "GOTOWE "+
+                appData.getAuthor() + ", " + appData.getVersion();
     }
 }
