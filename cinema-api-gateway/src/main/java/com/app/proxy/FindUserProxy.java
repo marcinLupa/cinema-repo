@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("cinema-users-service")
 public interface FindUserProxy {
-    @GetMapping("/find/id/{id}")
-    GetUserDto findById(@PathVariable("id") Long id);
-
-    @GetMapping("/find/username/{username}")
-    GetUserDto findByUsername(@PathVariable("username") String username);
+//    @GetMapping("/find/id/{id}")
+//    GetUserDto findById(@PathVariable("id") Long id);
+//
+//    @GetMapping("/find/username/{username}")
+//    GetUserDto findByUsername(@PathVariable("username") String username);
 }
 

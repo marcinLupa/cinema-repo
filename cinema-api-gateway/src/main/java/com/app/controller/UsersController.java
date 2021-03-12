@@ -14,10 +14,10 @@ public class UsersController {
 
     private final FindUserProxy findUserProxy;
 
-    @GetMapping
-        public GetUserDto findByUsername() {
-        System.out.println("bla");
-            return findUserProxy.findByUsername("Kamil");
-        }
+//    @GetMapping
+//        public GetUserDto findByUsername() {
+//        System.out.println("bla");
+//            return findUserProxy.findByUsername("Kamil");
+//        }
     }
 

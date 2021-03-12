@@ -36,6 +36,23 @@ services:
     expose:
     - "3307"
 
+  mysql-container2:
+    image: mysql:latest
+    volumes:
+      - mysql2:/var/lib/mysql
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: test123
+      MYSQL_TCP_PORT: 3309
+    ports:
+      - "3309:3309"
+    expose:
+      - "3309"
+
   cinema-eureka-server:
     image: marcinlupa1987/cinema-repo:cinema-eureka-server
     build:
@@ -62,6 +79,14 @@ services:
     restart: always
     ports:
       - "8100"
+  cinema-seance-service:
+    image: marcinlupa1987/cinema-repo:cinema-seance-service
+    build:
+      context: ./cinema-seance-service
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8102"
 
   cinema-api-gateway:
     image: marcinlupa1987/cinema-repo:cinema-api-gateway
@@ -84,3 +109,4 @@ services:
 volumes:
   mysql1:
   mysql2:
+  mysql3:
